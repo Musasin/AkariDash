@@ -8,8 +8,9 @@ public class Camera : MonoBehaviour
     const float POSITION_SYNC_DISTANCE_Y = 1.0f;
     const float FORCE_POSITION_SYNC_DISTANCE_Y = 2.0f;
     const float MIN_POSITION_Y = 0f;
-    const float CAMERA_MOVE_SPEED = 50.0f;
-    const float FORCE_CAMERA_MOVE_SPEED = 30.0f;
+    const float MAX_POSITION_X = 320.0f;
+    const float CAMERA_MOVE_SPEED = 200.0f;
+    const float FORCE_CAMERA_MOVE_SPEED = 300.0f;
     private GameObject player;
     float targetPosX;
     float targetPosY;
@@ -82,7 +83,7 @@ public class Camera : MonoBehaviour
         }
 
         Vector3 newPosition = transform.position;
-        newPosition.x = targetPosX;
+        newPosition.x = Mathf.Min(targetPosX, MAX_POSITION_X);
         newPosition.y = Mathf.Max(targetPosY, MIN_POSITION_Y);
         newPosition.z = this.transform.position.z;
         return newPosition;

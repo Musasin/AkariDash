@@ -19,10 +19,28 @@ public class FootJudgement : MonoBehaviour
     {
 
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        cameraScript.UpdatePlayerPosY();
-        canJump = true;
+        if (collision.tag == "Ground")
+        {
+            //cameraScript.UpdatePlayerPosY();
+            canJump = true;
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Ground")
+        {
+            //cameraScript.UpdatePlayerPosY();
+            canJump = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Ground")
+        {
+            canJump = false;
+        }
     }
     public void SetCanJump(bool canJump)
     {

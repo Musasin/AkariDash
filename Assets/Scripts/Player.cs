@@ -7,13 +7,14 @@ public class Player : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb;
     private FootJudgement footJudgement;
+    private SpeedPanel speedPanel;
     float velocityX, velocityY;
 
     const float JUMP_VELOCITY = 15.0f;
     const float WALK_VELOCITY = 7.0f;
     const float JUMP_KEY_MAX_TIME = 0.1f;
     const float DEFAULT_DASH_SPEED = 1.0f;
-    const float MAX_DASH_SPEED = 5.0f;
+    const float MAX_DASH_SPEED = 4.0f;
     const float MIN_DASH_SPEED = 0.2f;
     float pressJumpKeyTime;
     float dashSpeed;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         footJudgement = GetComponentInChildren<FootJudgement>();
+        speedPanel = GameObject.Find("SpeedPanel").GetComponent<SpeedPanel>();
     }
     // Start is called before the first frame update
     void Start()
@@ -54,12 +56,13 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            dashSpeed = Mathf.Min(dashSpeed + 0.01f, MAX_DASH_SPEED);
+            dashSpeed = Mathf.Min(dashSpeed + 0.05f, MAX_DASH_SPEED);
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            dashSpeed = Mathf.Max(dashSpeed - 0.01f, MIN_DASH_SPEED);
+            dashSpeed = Mathf.Max(dashSpeed - 0.05f, MIN_DASH_SPEED);
         }
+        speedPanel.SetSpeedPercent((dashSpeed - MIN_DASH_SPEED) / (MAX_DASH_SPEED - MIN_DASH_SPEED));
         velocityX = WALK_VELOCITY * dashSpeed;
         animator.speed = dashSpeed;
 
@@ -79,6 +82,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.C) && footJudgement.CanJump())
         {
+            AudioManager.Instance.PlaySE("Jump", 0.2f);
             velocityY = JUMP_VELOCITY;
             pressJumpKeyTime = 0;
             footJudgement.SetCanJump(false);

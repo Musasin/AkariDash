@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - CameraMarker
+  - Ground
+  - Goal
   layers:
   - Default
   - TransparentFX
@@ -41,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackMap
+    uniqueID: 4279079925
     locked: 0
   - name: Map
     uniqueID: 1587084111

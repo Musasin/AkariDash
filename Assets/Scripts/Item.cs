@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     SpriteRenderer sr;
     float deadTime;
     bool isDead;
+    Score score;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,7 @@ public class Item : MonoBehaviour
         deadTime = 0;
         ps = GetComponentInChildren<ParticleSystem>();
         sr = GetComponentInChildren<SpriteRenderer>();
+        score = GameObject.Find("ScoreText").GetComponent<Score>();
     }
 
     // Update is called once per frame
@@ -23,7 +25,7 @@ public class Item : MonoBehaviour
     {
         if (isDead)
             deadTime += Time.deltaTime;
-        sr.color = new Color(1.0f, 1.0f, 1.0f, 1.0f - deadTime);
+        sr.color = new Color(1.0f, 1.0f, 1.0f, 1.0f - deadTime * 3);
 
     }
 
@@ -34,6 +36,7 @@ public class Item : MonoBehaviour
             ps.Play();
             isDead = true;
             AudioManager.Instance.PlaySE("Coin", 0.2f);
+            score.AddScore(100);
         }
     }
 }
