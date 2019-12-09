@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -30,7 +31,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         dashSpeed = DEFAULT_DASH_SPEED;
-        AudioManager.Instance.PlayBGM("bgm_maoudamashii_8bit14", 0.5f, true);
+
+        if (SceneManager.GetActiveScene().name != "TitleScene")
+            AudioManager.Instance.PlayBGM("bgm_maoudamashii_8bit14", 0.5f, true);
     }
 
     // Update is called once per frame
