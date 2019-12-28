@@ -33,12 +33,18 @@ public class Player : MonoBehaviour
         dashSpeed = DEFAULT_DASH_SPEED;
 
         if (SceneManager.GetActiveScene().name != "TitleScene")
-            AudioManager.Instance.PlayBGM("bgm_maoudamashii_8bit14", 0.5f, true);
+            AudioManager.Instance.PlayBGM("bgm_maoudamashii_8bit14", 0.3f, true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (StaticValues.IsCountDownPause())
+        {
+            animator.speed = 0;
+            return;
+        }
+
         velocityX = rb.velocity.x;
         velocityY = rb.velocity.y;
 
@@ -85,7 +91,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.C) && footJudgement.CanJump())
         {
-            AudioManager.Instance.PlaySE("Jump", 0.2f);
+            AudioManager.Instance.PlaySE("Jump", 0.1f);
             velocityY = JUMP_VELOCITY;
             pressJumpKeyTime = 0;
             footJudgement.SetCanJump(false);

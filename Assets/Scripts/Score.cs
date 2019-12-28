@@ -20,6 +20,11 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (StaticValues.IsCountDownPause())
+        {
+            return;
+        }
+
         time += Time.deltaTime;
         float sec = Mathf.Floor(time);
         string secText = sec.ToString().PadLeft(3, '0');
