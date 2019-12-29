@@ -25,7 +25,11 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         footJudgement = GetComponentInChildren<FootJudgement>();
-        speedPanel = GameObject.Find("SpeedPanel").GetComponent<SpeedPanel>();
+        GameObject speedPanelObj = GameObject.Find("SpeedPanel");
+        if (speedPanelObj)
+        {
+            speedPanel = GameObject.Find("SpeedPanel").GetComponent<SpeedPanel>();
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -71,7 +75,10 @@ public class Player : MonoBehaviour
         {
             dashSpeed = Mathf.Max(dashSpeed - 0.05f, MIN_DASH_SPEED);
         }
-        speedPanel.SetSpeedPercent((dashSpeed - MIN_DASH_SPEED) / (MAX_DASH_SPEED - MIN_DASH_SPEED));
+        if (speedPanel)
+        {
+            speedPanel.SetSpeedPercent((dashSpeed - MIN_DASH_SPEED) / (MAX_DASH_SPEED - MIN_DASH_SPEED));
+        }
         velocityX = WALK_VELOCITY * dashSpeed;
         animator.speed = dashSpeed;
 
